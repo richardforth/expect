@@ -1,0 +1,25 @@
+#!/usr/bin/expect --
+set timeout 5
+spawn sudo -i
+expect {
+        "# " {
+                puts "No password required, continuing processing..."
+                send "df -h\n" # send arbitrary command you want to automate as root
+                expect "# "
+                send "exit\n"
+                expect "$ "
+                puts "Finished processing.\n"
+        }
+        "password for " {
+                interact + return # Allow user to type in password, then pass back control to expect using + key to continue automation
+                send "\n" # get the next prompt to trigger expect, send newline key
+                expect "# "
+                puts "Control returned to expect...\n"
+                send "df -h\n"  # send arbitrary command you want to automate as root
+                expect "# "
+                send "exit\n"
+                expect "$ "
+                puts "Finished processing.\n"
+        }
+}
+puts "Done"
