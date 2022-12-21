@@ -11,6 +11,7 @@ expect {
                 puts "Finished processing.\n"
         }
         "password for " {
+                send_user "(if prompted, enter password followed by return key, then press + to resume): "
                 interact + return # Allow user to type in password, then pass back control to expect using + key to continue automation
                 send "\n" # get the next prompt to trigger expect, send newline key
                 expect "# "
