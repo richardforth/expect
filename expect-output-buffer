@@ -1,0 +1,6 @@
+#!/usr/bin/expect --
+log_user 0
+spawn whoami
+expect "$ "
+set username [ string trimright $expect_out(buffer) "\r\n" ]
+puts "User $username logged in."
